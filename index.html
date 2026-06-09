@@ -3,15 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOTEPAD LOCK TOGEL MAS ROY</title>
+<title>Notepad Lock Togel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 <style>
+:root{
+    --bg:#0f172a;
+    --box:#050505;
+    --text:white;
+    --btn:#2563eb;
+}
+
+.light{
+    --bg:#f1f5f9;
+    --box:white;
+    --text:black;
+    --btn:#0ea5e9;
+}
+
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    color:white;
-    background:linear-gradient(135deg,#020617,#0f172a);
-    min-height:100vh;
+    font-family:Arial;
+    background:var(--bg);
+    color:var(--text);
+    transition:0.3s;
 }
 
 .header{
@@ -20,54 +36,61 @@ body{
 }
 
 .logo{
+    padding:15px 30px;
     display:inline-block;
-    padding:18px 35px;
-    background:rgba(15,23,42,.8);
+    border-radius:20px;
     border:2px solid #3b82f6;
-    border-radius:25px;
-    font-size:28px;
-    font-weight:bold;
 }
 
-.add-btn{
-    display:block;
-    margin:10px auto;
-    padding:10px 20px;
-    border:none;
-    border-radius:10px;
-    background:#22c55e;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+.controls{
+    text-align:center;
+    margin-bottom:10px;
 }
+
+button{
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin:3px;
+}
+
+.add-btn{background:#22c55e;color:white;}
+.mode-btn{background:#f59e0b;color:white;}
 
 .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:15px;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:10px;
     padding:15px;
 }
 
 .box{
-    background:#050505;
+    background:var(--box);
     padding:15px;
-    border-radius:15px;
+    border-radius:12px;
     position:relative;
-    white-space:pre-line;
-    line-height:1.6;
+    min-height:80px;
     outline:none;
 }
 
 .copy-btn{
     position:absolute;
-    right:10px;
-    bottom:10px;
-    border:none;
-    background:#2563eb;
+    right:8px;
+    bottom:8px;
+    background:var(--btn);
     color:white;
-    padding:6px 12px;
-    border-radius:8px;
-    cursor:pointer;
+    border:none;
+    padding:5px 10px;
+    border-radius:6px;
+}
+
+.drag-handle{
+    position:absolute;
+    top:8px;
+    right:8px;
+    cursor:grab;
+    opacity:0.5;
 }
 </style>
 </head>
@@ -75,50 +98,87 @@ body{
 <body>
 
 <div class="header">
-    <div class="logo">📝 NOTEPAD TOGEL ROY</div>
+    <div class="logo">📝 NOTEPAD ROY</div>
 </div>
 
-<button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
-
-<div class="container" id="container">
-
-    <div class="box" contenteditable="true">
-BERI PERINGATAN BATASAN PASANG TOGEL 2D
-JIKA KEDAPATAN BETTING LEBIH BATAS
-HANGUSKAN KEMENANGAN
-        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
-    </div>
-
-    <div class="box" contenteditable="true">
-INVEST 2D, BERI PERINGATAN BATASAN
-TIDAK TERIMA BETTING TOGEL
-        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
-    </div>
-
+<div class="controls">
+    <button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
+    <button class="mode-btn" onclick="toggleMode()">🌙 / ☀ Mode</button>
 </div>
+
+<div class="container" id="container"></div>
 
 <script>
-function copyBox(btn){
-    const text = btn.parentElement.innerText.replace("COPY","");
-    navigator.clipboard.writeText(text);
+let container = document.getElementById("container");
 
-    alert("✔ Teks dicopy");
+/* ===== LOAD DATA ===== */
+function loadData(){
+    let data = localStorage.getItem("boxes");
+    if(data){
+        container.innerHTML = data;
+        attachEvents();
+    } else {
+        addBox("Tulis teks di sini...");
+    }
 }
 
-function addBox(){
-    const container = document.getElementById("container");
+/* ===== SAVE ===== */
+function saveData(){
+    localStorage.setItem("boxes", container.innerHTML);
+}
 
-    const box = document.createElement("div");
+/* ===== ADD BOX ===== */
+function addBox(text="Tulis teks di sini..."){
+    let box = document.createElement("div");
     box.className = "box";
     box.contentEditable = true;
 
     box.innerHTML = `
-        Tulis teks di sini...
+        <div class="drag-handle">☰</div>
+        ${text}
         <button class="copy-btn" onclick="copyBox(this)">COPY</button>
     `;
 
     container.appendChild(box);
+    attachEvents();
+    saveData();
 }
+
+/* ===== COPY ===== */
+function copyBox(btn){
+    let text = btn.parentElement.innerText.replace("COPY","");
+    navigator.clipboard.writeText(text);
+}
+
+/* ===== AUTO SAVE ===== */
+document.addEventListener("input", saveData);
+
+/* ===== DRAG SORT ===== */
+new Sortable(container, {
+    animation:150,
+    handle:".drag-handle",
+    onEnd: saveData
+});
+
+/* ===== DARK/LIGHT MODE ===== */
+function toggleMode(){
+    document.body.classList.toggle("light");
+    localStorage.setItem("mode", document.body.classList.contains("light") ? "light" : "dark");
+}
+
+/* ===== LOAD MODE ===== */
+if(localStorage.getItem("mode") === "light"){
+    document.body.classList.add("light");
+}
+
+/* ===== INIT ===== */
+function attachEvents(){
+    document.querySelectorAll(".box").forEach(b=>{
+        b.addEventListener("input", saveData);
+    });
+}
+
+loadData();
 </script>
 
 </body>
