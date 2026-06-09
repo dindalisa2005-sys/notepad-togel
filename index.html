@@ -30,6 +30,26 @@ body{
     transition:0.3s;
 }
 
+/* ===== LOCK SCREEN ===== */
+#lockScreen{
+    position:fixed;
+    inset:0;
+    background:#0f172a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:99999;
+}
+
+#lockScreen input{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin:10px;
+}
+
+/* ===== UI ===== */
 .header{
     text-align:center;
     padding:20px;
@@ -72,6 +92,7 @@ button{
     position:relative;
     min-height:80px;
     outline:none;
+    white-space:pre-wrap;
 }
 
 .copy-btn{
@@ -97,6 +118,15 @@ button{
 
 <body>
 
+<!-- 🔐 LOCK SCREEN -->
+<div id="lockScreen">
+    <h2>🔐 Masukkan Password</h2>
+    <input type="password" id="pass">
+    <button onclick="checkPass()">Masuk</button>
+    <p id="err" style="color:red;"></p>
+</div>
+
+<!-- APP -->
 <div class="header">
     <div class="logo">📝 NOTEPAD ROY</div>
 </div>
@@ -109,14 +139,26 @@ button{
 <div class="container" id="container"></div>
 
 <script>
+const PASSWORD = "1234"; // 🔑 ganti password kamu
+
 let container = document.getElementById("container");
 
-/* ===== LOAD DATA ===== */
+/* ===== LOCK ===== */
+function checkPass(){
+    let input = document.getElementById("pass").value;
+
+    if(input === PASSWORD){
+        document.getElementById("lockScreen").style.display = "none";
+    } else {
+        document.getElementById("err").innerText = "Password salah!";
+    }
+}
+
+/* ===== LOAD ===== */
 function loadData(){
     let data = localStorage.getItem("boxes");
     if(data){
         container.innerHTML = data;
-        attachEvents();
     } else {
         addBox("Tulis teks di sini...");
     }
@@ -140,7 +182,6 @@ function addBox(text="Tulis teks di sini..."){
     `;
 
     container.appendChild(box);
-    attachEvents();
     saveData();
 }
 
@@ -153,31 +194,26 @@ function copyBox(btn){
 /* ===== AUTO SAVE ===== */
 document.addEventListener("input", saveData);
 
-/* ===== DRAG SORT ===== */
+/* ===== DRAG ===== */
 new Sortable(container, {
     animation:150,
     handle:".drag-handle",
     onEnd: saveData
 });
 
-/* ===== DARK/LIGHT MODE ===== */
+/* ===== MODE ===== */
 function toggleMode(){
     document.body.classList.toggle("light");
-    localStorage.setItem("mode", document.body.classList.contains("light") ? "light" : "dark");
+    localStorage.setItem("mode",
+        document.body.classList.contains("light") ? "light":"dark"
+    );
 }
 
-/* ===== LOAD MODE ===== */
-if(localStorage.getItem("mode") === "light"){
+if(localStorage.getItem("mode")==="light"){
     document.body.classList.add("light");
 }
 
 /* ===== INIT ===== */
-function attachEvents(){
-    document.querySelectorAll(".box").forEach(b=>{
-        b.addEventListener("input", saveData);
-    });
-}
-
 loadData();
 </script>
 
