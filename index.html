@@ -15,6 +15,7 @@
     --btn:#2563eb;
 }
 
+/* LIGHT MODE */
 .light{
     --bg:#f1f5f9;
     --box:white;
@@ -28,10 +29,9 @@ body{
     background:var(--bg);
     color:var(--text);
     overflow:hidden;
-    transition:0.3s;
 }
 
-/* ===== CYBER BACKGROUND ===== */
+/* CYBER BACKGROUND */
 .grid{
     position:fixed;
     inset:0;
@@ -55,196 +55,205 @@ body{
 .scanline{
     position:fixed;
     top:-40%;
-    left:0;
     width:100%;
     height:40%;
-    background:linear-gradient(
-        to bottom,
+    background:linear-gradient(to bottom,
         transparent,
-        rgba(0,255,255,0.08),
         rgba(0,255,255,0.2),
-        transparent
-    );
-    animation:scanMove 4s linear infinite;
+        transparent);
+    animation:scan 4s linear infinite;
     z-index:-1;
 }
 
-@keyframes scanMove{
-    0%{top:-40%;}
-    100%{top:120%;}
+@keyframes scan{
+    0%{top:-40%}
+    100%{top:120%}
 }
 
-/* ===== LOCK ===== */
+/* LOCK SCREEN */
 #lockScreen{
     position:fixed;
     inset:0;
-    background:#0f172a;
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    background:#000;
     z-index:9999;
 }
 
-#lockScreen input{
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    margin:5px;
-}
-
-/* ===== HEADER ===== */
+/* HEADER */
 .header{
     text-align:center;
-    padding:20px;
-}
-
-/* ===== BUTTON ===== */
-button{
-    padding:8px 12px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    margin:3px;
-}
-
-.add-btn{background:#22c55e;color:white;}
-.mode-btn{background:#f59e0b;color:white;}
-
-/* ===== CONTAINER ===== */
-.container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:10px;
     padding:15px;
 }
 
-/* ===== BOX ===== */
+.logo{
+    padding:12px 25px;
+    border:1px solid #3b82f6;
+    display:inline-block;
+    border-radius:12px;
+}
+
+/* CONTROLS */
+.controls{
+    text-align:center;
+}
+
+button{
+    padding:8px 10px;
+    margin:3px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.add{background:#22c55e;color:white;}
+.mode{background:#f59e0b;color:white;}
+.set{background:#a855f7;color:white;}
+
+/* BOX */
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:10px;
+    padding:10px;
+}
+
 .box{
     background:var(--box);
     color:var(--text);
-    padding:15px;
-    border-radius:12px;
-    position:relative;
-    min-height:80px;
+    padding:12px;
+    border-radius:10px;
+    min-height:70px;
     outline:none;
-    white-space:pre-wrap;
+    position:relative;
 }
 
-/* ===== COPY ===== */
-.copy-btn{
+.copy{
     position:absolute;
-    right:8px;
-    bottom:8px;
+    bottom:5px;
+    right:5px;
+    font-size:12px;
     background:var(--btn);
     color:white;
-    border:none;
-    padding:5px 10px;
-    border-radius:6px;
 }
 
-/* ===== DRAG ===== */
-.drag-handle{
-    position:absolute;
-    top:8px;
-    right:8px;
-    cursor:grab;
-    opacity:0.5;
+/* SETTINGS */
+#settings{
+    position:fixed;
+    top:10px;
+    right:10px;
+    background:#111;
+    padding:10px;
+    border-radius:10px;
+    display:none;
+    z-index:99999;
 }
 </style>
 </head>
 
 <body>
 
-<!-- CYBER EFFECT -->
 <div class="grid"></div>
 <div class="cyber-bg"></div>
 <div class="scanline"></div>
 
-<!-- LOCK SCREEN -->
+<!-- LOCK -->
 <div id="lockScreen">
-    <h2>🔐 Masukkan Password</h2>
-    <input type="password" id="pass">
-    <button onclick="checkPass()">Masuk</button>
-    <p id="err" style="color:red;"></p>
+    <h2>🔐 Password</h2>
+    <input id="pass" type="password">
+    <button onclick="login()">Masuk</button>
 </div>
 
-<!-- APP -->
+<!-- SETTINGS -->
+<div id="settings">
+    <h4>⚙ Ganti Password</h4>
+    <input id="newPass" placeholder="password baru">
+    <button onclick="savePass()">Simpan</button>
+</div>
+
+<!-- UI -->
 <div class="header">
-    <h2>📝 NOTEPAD CYBER LOCK</h2>
-    <button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
-    <button class="mode-btn" onclick="toggleMode()">🌙 / ☀ Mode</button>
+    <div class="logo">📝 CYBER NOTEPAD</div>
+</div>
+
+<div class="controls">
+    <button class="add" onclick="addBox()">➕ Box</button>
+    <button class="mode" onclick="toggleMode()">🌙 Mode</button>
+    <button class="set" onclick="toggleSettings()">⚙</button>
 </div>
 
 <div class="container" id="container"></div>
 
 <script>
-const PASSWORD = "1234";
-let container = document.getElementById("container");
+let container=document.getElementById("container");
 
-/* ===== LOCK ===== */
-function checkPass(){
-    let input = document.getElementById("pass").value;
+/* DEFAULT PASSWORD */
+if(!localStorage.getItem("pass")){
+    localStorage.setItem("pass","1234");
+}
 
-    if(input === PASSWORD){
-        document.getElementById("lockScreen").style.display = "none";
-    } else {
-        document.getElementById("err").innerText = "Password salah!";
+/* LOGIN */
+function login(){
+    let p=document.getElementById("pass").value;
+    if(p===localStorage.getItem("pass")){
+        document.getElementById("lockScreen").style.display="none";
+        load();
+    }else{
+        alert("Password salah");
     }
 }
 
-/* ===== ADD BOX ===== */
-function addBox(text="Tulis teks di sini..."){
-    let box = document.createElement("div");
-    box.className = "box";
-    box.contentEditable = true;
-
-    box.innerHTML = `
-        <div class="drag-handle">☰</div>
-        ${text}
-        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
-    `;
-
-    container.appendChild(box);
-    saveData();
+/* SETTINGS */
+function toggleSettings(){
+    let s=document.getElementById("settings");
+    s.style.display = s.style.display==="block"?"none":"block";
 }
 
-/* ===== COPY ===== */
-function copyBox(btn){
-    let text = btn.parentElement.innerText.replace("COPY","");
-    navigator.clipboard.writeText(text);
-}
-
-/* ===== SAVE ===== */
-function saveData(){
-    localStorage.setItem("boxes", container.innerHTML);
-}
-
-/* ===== LOAD ===== */
-function loadData(){
-    let data = localStorage.getItem("boxes");
-    if(data){
-        container.innerHTML = data;
-    } else {
-        addBox();
+function savePass(){
+    let p=document.getElementById("newPass").value;
+    if(p){
+        localStorage.setItem("pass",p);
+        alert("Password diganti!");
     }
 }
 
-/* ===== MODE ===== */
+/* BOX */
+function addBox(text="Tulis..."){
+    let div=document.createElement("div");
+    div.className="box";
+    div.contentEditable=true;
+    div.innerHTML=text+`<button class="copy" onclick="copy(this)">COPY</button>`;
+    container.appendChild(div);
+    save();
+}
+
+/* COPY */
+function copy(btn){
+    navigator.clipboard.writeText(btn.parentElement.innerText.replace("COPY",""));
+}
+
+/* SAVE */
+function save(){
+    localStorage.setItem("data",container.innerHTML);
+}
+
+function load(){
+    container.innerHTML=localStorage.getItem("data")||"";
+}
+
+/* MODE */
 function toggleMode(){
     document.body.classList.toggle("light");
 }
 
-/* ===== DRAG ===== */
-new Sortable(container, {
-    animation:150,
-    handle:".drag-handle",
-    onEnd: saveData
-});
+/* AUTO SAVE */
+document.addEventListener("input",save);
 
-document.addEventListener("input", saveData);
+/* DRAG */
+new Sortable(container,{animation:150});
 
-loadData();
 </script>
 
 </body>
