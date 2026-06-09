@@ -83,6 +83,7 @@ body{
     border-radius:18px;
     position:relative;
     white-space:pre-line;
+	line-height:1.6;
 }
 
 .copy-btn{
@@ -98,7 +99,8 @@ body{
 }
 
 .copy-btn:hover{
-    opacity:0.8;
+    transform: scale(1.05);
+    transition:0.2s;
 }
 </style>
 </head>
@@ -192,7 +194,25 @@ function copyText(id){
     const text = document.getElementById(id).innerText;
 
     navigator.clipboard.writeText(text).then(() => {
-        console.log("Berhasil dicopy");
+        const msg = document.createElement("div");
+        msg.innerText = "✔ Berhasil dicopy";
+
+        msg.style.position = "fixed";
+        msg.style.bottom = "20px";
+        msg.style.left = "50%";
+        msg.style.transform = "translateX(-50%)";
+        msg.style.background = "#2563eb";
+        msg.style.padding = "10px 20px";
+        msg.style.borderRadius = "10px";
+        msg.style.color = "white";
+        msg.style.fontSize = "14px";
+        msg.style.zIndex = "9999";
+
+        document.body.appendChild(msg);
+
+        setTimeout(() => {
+            msg.remove();
+        }, 1500);
     });
 }
 </script>
