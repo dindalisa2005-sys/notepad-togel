@@ -1,100 +1,187 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>Notepad TOGEL CEK TOGEL NYA ROY ABDU SIREGAR</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOTEPAD LOCK TOGEL MAS ROY</title>
+
 <style>
 body{
-background:#000;
-color:#fff;
-font-family:Arial;
-padding:20px;
+    margin:0;
+    background:#020817;
+    font-family:Arial, sans-serif;
+    color:white;
+}
+
+.header{
+    text-align:center;
+    padding:20px;
+}
+
+.logo{
+    display:inline-block;
+    background:#0f172a;
+    border:1px solid #2563eb;
+    border-radius:20px;
+    padding:15px 25px;
+    font-size:24px;
+    font-weight:bold;
+    color:white;
+    box-shadow:0 0 20px #2563eb;
+    max-width:90%;
+    word-wrap:break-word;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:15px;
+    padding:15px;
+}
+
+.column{
+    background:#000;
+    border:2px solid #1e3a8a;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.title{
+    background:white;
+    color:black;
+    text-align:center;
+    padding:10px;
+    font-size:22px;
+    font-weight:bold;
+    box-shadow:0 0 12px #facc15;
 }
 
 .box{
-background:#111;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
+    margin:12px;
+    padding:15px;
+    padding-bottom:55px;
+    background:#050505;
+    border:1px solid #222;
+    border-radius:18px;
+    position:relative;
+    min-height:90px;
+    white-space:pre-line;
+    word-break:break-word;
 }
 
-button{
-background:#2196f3;
-color:white;
-border:none;
-padding:8px 15px;
-border-radius:5px;
-cursor:pointer;
+.copy-btn{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+    border:none;
+    color:white;
+    background:linear-gradient(45deg,#0ea5e9,#2563eb);
+    padding:8px 16px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.copy-btn:hover{
+    opacity:0.9;
 }
 </style>
 </head>
+
 <body>
 
-<h1>NOTEPAD TOGEL</h1>
-
-<div class="box">
-<span id="txt1">BERI PERINGATAN BATASAN PASANG TOGEL 2D 
-JIKA KEDAPATAN BETTING LEBIH BATAS 
-HANGUSKAN KEMENANGAN TOGEL DAN HANYA
-BISA BERMAIN SLOT ATAU LIVEGAME SAJA.</span>
-<button onclick="copyText('txt1')">COPY</button>
+<div class="header">
+    <div class="logo">📝 NOTEPAD TOGEL ROY ABDU SIREGAR</div>
 </div>
 
-<div class="box">
-<span id="txt2">KET SEBELUM NYA SUDAH DI PERINGATI BATAS LINE 2D
-TIDAK TERIMA BETING TOGEL DAN HANYA BISA
+<div class="container">
+
+    <div class="column">
+        <div class="title">LOCK PEMAIN INVEST BARU</div>
+
+        <div class="box">
+            <span id="txt1">
+            BERI PERINGATAN BATASAN PASANG TOGEL 2D 
+JIKA KEDAPATAN BETTING LEBIH BATAS 
+HANGUSKAN KEMENANGAN TOGEL DAN HANYA
+BISA BERMAIN SLOT ATAU LIVEGAME SAJA
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt1')">COPY</button>
+        </div>
+
+        <div class="box">
+            <span id="txt2">
+            INVEST 2D, BERI PERINGATAN BATASAN PASANG
+TOGEL, JIKA KEDAPATAN BETTING LEBIH BATAS 
+HANGUSKAN KEMENANGAN TOGEL DAN HANYA
+BISA BERMAIN SLOT ATAU LIVEGAME SAJA
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt2')">COPY</button>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="title">SUDAH DI PERINGATI 1 KALI</div>
+
+        <div class="box">
+            <span id="txt3">
+            KET SEBELUM NYA SUDAH DI PERINGATI BATAS LINE 2D
+TIDAK TERIMA BETTING TOGEL DAN HANYA BISA
 BERMAIN SLOT DAN LIVE GAME SAJA , 
-HANGUSKAN KEMENANGAN.</span>
-<button onclick="copyText('txt2')">COPY</button>
+HANGUSKAN KEMENANGAN
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt3')">COPY</button>
+        </div>
+
+        <div class="box">
+            <span id="txt4">
+            INVEST 2D, KET SEBELUMNYA SUDAH PERNAH DI 
+PERINGATI UNTUK BERMAIN TOGEL ,HANGUSKAN
+KEMENANGAN KEMBALIKAN MODAL DEPOSIT
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt4')">COPY</button>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="title">PEMAIN INVEST HKB</div>
+
+        <div class="box">
+            <span id="txt5">
+            PEMAIN INVEST PASARAN HKB 
+SUDAH DI LOCK DI WEB LAIN 
+TIDAK TERIMA BETTING TOGEL LAGI
+HANGUSKAN KEMENANGAN .
+            </span>
+            <button class="copy-btn" onclick="copyText('txt5')">COPY</button>
+        </div>
+
+        <div class="box">
+            <span id="txt6">
+            INVEST 2D LAGA DI WEB LAIN, TIDAK TERMAKAN
+JANGKA PANJANG, TIDAK TERIMA BETTING
+TOGEL LAGI DAN HANYA BISA MAIN SLOT ATAU 
+LIVE GAME SAJA.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt6')">COPY</button>
+        </div>
+    </div>
+
 </div>
 
 <script>
 function copyText(id){
-navigator.clipboard.writeText(
-document.getElementById(id).innerText
-);
-alert("Berhasil dicopy");
+    const text = document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text).then(() => {
+        console.log("Berhasil dicopy");
+    });
 }
 </script>
 
 </body>
 </html>
-<div class="box">
-<span id="txt3">INDIKASI INVEST 2D PASARAN HKB,
-BANTU PANTAU BETINGANNYA JIKA 
-TIDAK TERMAKAN JANGAKA PANJANG
-KASI MAIN SLOT DAN LIVE GAME SAJA.</span>
-<button onclick="copyText('txt3')">COPY</button>
-</div>
-<div class="box">
-<span id="txt3">INVEST 2D, KET SEBELUMNYA SUDAH PERNAH DI 
-PERINGATI UNTUK BERMAIN TOGEL ,HANGUSKAN
-KEMENGANGAN KEMBALIKAN MODAL DEPOSIT
-.</span>
-<button onclick="copyText('txt3')">COPY</button>
-</div>
-<div class="box">
-<span id="txt3">INVEST 2D, SEBELUMNYA SUDAH PERNAH DI 
-PERINGATI, TIDAK TERIMA BETTINGAN TOGEL
-LAGI DAN HANYA BISA BERMAIN SLOT ATAU
-LIVEGAME SAJA 
-.</span>
-<button onclick="copyText('txt3')">COPY</button>
-</div>
-<div class="box">
-<span id="txt3">INVEST 2D LAGA DI WEB LAIN, TIDAK TERMAKAN
-JANGKA PANJANG, TIDAK TERIMA BETTINGAN
-TOGEL LAGI DAN HANYA BISA MAIN SLOT ATAU 
-LIVE GAME SAJA
-.</span>
-<button onclick="copyText('txt3')">COPY</button>
-</div>
-<div class="box">
-<span id="txt3">Peraturan Batas Pasang Togel BBFS (BB campuran) dan
-Angka Tarung Maksimal 5 Digit, berikut untuk Batas Line nya :
-
-4D 625 line
-3D 150 line
-2D 20 line
-.</span>
-<button onclick="copyText('txt3')">COPY</button>
-</div>
