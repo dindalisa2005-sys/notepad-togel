@@ -10,27 +10,8 @@ body{
     margin:0;
     font-family:Arial, sans-serif;
     color:white;
-
-    background:
-    radial-gradient(circle at top left,#2563eb 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#06b6d4 0%,transparent 30%),
-    linear-gradient(135deg,#020617,#0f172a,#020617);
-
+    background:linear-gradient(135deg,#020617,#0f172a);
     min-height:100vh;
-}
-
-/* FIX ANIMATION */
-@keyframes glow{
-    from{
-        box-shadow:
-        0 0 10px #2563eb,
-        0 0 20px #2563eb;
-    }
-    to{
-        box-shadow:
-        0 0 25px #3b82f6,
-        0 0 50px #3b82f6;
-    }
 }
 
 .header{
@@ -41,49 +22,40 @@ body{
 .logo{
     display:inline-block;
     padding:18px 35px;
-
     background:rgba(15,23,42,.8);
     border:2px solid #3b82f6;
     border-radius:25px;
-
     font-size:28px;
     font-weight:bold;
-    color:white;
+}
 
-    animation:glow 2s infinite alternate;
+.add-btn{
+    display:block;
+    margin:10px auto;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:15px;
     padding:15px;
 }
 
-.column{
-    background:#000;
-    border:2px solid #1e3a8a;
-    border-radius:20px;
-}
-
-.title{
-    background:white;
-    color:black;
-    text-align:center;
-    padding:10px;
-    font-size:22px;
-    font-weight:bold;
-}
-
 .box{
-    margin:12px;
-    padding:15px;
-    padding-bottom:55px;
     background:#050505;
-    border-radius:18px;
+    padding:15px;
+    border-radius:15px;
     position:relative;
     white-space:pre-line;
-	line-height:1.6;
+    line-height:1.6;
+    outline:none;
 }
 
 .copy-btn{
@@ -91,16 +63,11 @@ body{
     right:10px;
     bottom:10px;
     border:none;
+    background:#2563eb;
     color:white;
-    background:linear-gradient(45deg,#0ea5e9,#2563eb);
-    padding:8px 16px;
-    border-radius:12px;
+    padding:6px 12px;
+    border-radius:8px;
     cursor:pointer;
-}
-
-.copy-btn:hover{
-    transform: scale(1.05);
-    transition:0.2s;
 }
 </style>
 </head>
@@ -108,112 +75,49 @@ body{
 <body>
 
 <div class="header">
-    <div class="logo">📝 NOTEPAD TOGEL ROY ABDU SIREGAR</div>
+    <div class="logo">📝 NOTEPAD TOGEL ROY</div>
 </div>
 
-<div class="container">
+<button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
 
-    <div class="column">
-        <div class="title">LOCK PEMAIN INVEST BARU</div>
+<div class="container" id="container">
 
-        <div class="box">
-            <span id="txt1">
-BERI PERINGATAN BATASAN PASANG TOGEL 2D 
-JIKA KEDAPATAN BETTING LEBIH BATAS 
-HANGUSKAN KEMENANGAN TOGEL DAN HANYA
-BISA BERMAIN SLOT ATAU LIVEGAME SAJA.
-            </span>
-            <button class="copy-btn" onclick="copyText('txt1')">COPY</button>
-        </div>
-
-        <div class="box">
-            <span id="txt2">
-INVEST 2D, BERI PERINGATAN BATASAN PASANG
-TOGEL JIKA KEDAPATAN BETTING LEBIH BATAS 
-HANGUSKAN KEMENANGAN DAN HANYA
-BISA SLOT ATAU LIVEGAME SAJA.
-            </span>
-            <button class="copy-btn" onclick="copyText('txt2')">COPY</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="title">SUDAH DI PERINGATI 1 KALI</div>
-
-        <div class="box">
-            <span id="txt3">
-            KET SEBELUM NYA SUDAH DI PERINGATI BATAS LINE 2D
-TIDAK TERIMA BETTING TOGEL DAN HANYA BISA
-BERMAIN SLOT DAN LIVE GAME SAJA , 
+    <div class="box" contenteditable="true">
+BERI PERINGATAN BATASAN PASANG TOGEL 2D
+JIKA KEDAPATAN BETTING LEBIH BATAS
 HANGUSKAN KEMENANGAN
-.
-            </span>
-            <button class="copy-btn" onclick="copyText('txt3')">COPY</button>
-        </div>
-
-        <div class="box">
-            <span id="txt4">
-            INVEST 2D, KET SEBELUMNYA SUDAH PERNAH DI 
-PERINGATI UNTUK BERMAIN TOGEL ,HANGUSKAN
-KEMENANGAN KEMBALIKAN MODAL DEPOSIT
-.
-            </span>
-            <button class="copy-btn" onclick="copyText('txt4')">COPY</button>
-        </div>
+        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
     </div>
 
-    <div class="column">
-        <div class="title">PEMAIN INVEST HKB</div>
-
-        <div class="box">
-            <span id="txt5">
-            PEMAIN INVEST PASARAN HKB 
-SUDAH DI LOCK DI WEB LAIN 
-TIDAK TERIMA BETTING TOGEL LAGI
-HANGUSKAN KEMENANGAN .
-            </span>
-            <button class="copy-btn" onclick="copyText('txt5')">COPY</button>
-        </div>
-
-        <div class="box">
-            <span id="txt6">
-            INVEST 2D LAGA DI WEB LAIN, TIDAK TERMAKAN
-JANGKA PANJANG, TIDAK TERIMA BETTING
-TOGEL LAGI DAN HANYA BISA MAIN SLOT ATAU 
-LIVE GAME SAJA.
-
-            </span>
-            <button class="copy-btn" onclick="copyText('txt6')">COPY</button>
-        </div>
+    <div class="box" contenteditable="true">
+INVEST 2D, BERI PERINGATAN BATASAN
+TIDAK TERIMA BETTING TOGEL
+        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
     </div>
 
 </div>
 
 <script>
-function copyText(id){
-    const text = document.getElementById(id).innerText;
+function copyBox(btn){
+    const text = btn.parentElement.innerText.replace("COPY","");
+    navigator.clipboard.writeText(text);
 
-    navigator.clipboard.writeText(text).then(() => {
-        const msg = document.createElement("div");
-        msg.innerText = "✔ Berhasil dicopy";
+    alert("✔ Teks dicopy");
+}
 
-        msg.style.position = "fixed";
-        msg.style.bottom = "20px";
-        msg.style.left = "50%";
-        msg.style.transform = "translateX(-50%)";
-        msg.style.background = "#2563eb";
-        msg.style.padding = "10px 20px";
-        msg.style.borderRadius = "10px";
-        msg.style.color = "white";
-        msg.style.fontSize = "14px";
-        msg.style.zIndex = "9999";
+function addBox(){
+    const container = document.getElementById("container");
 
-        document.body.appendChild(msg);
+    const box = document.createElement("div");
+    box.className = "box";
+    box.contentEditable = true;
 
-        setTimeout(() => {
-            msg.remove();
-        }, 1500);
-    });
+    box.innerHTML = `
+        Tulis teks di sini...
+        <button class="copy-btn" onclick="copyBox(this)">COPY</button>
+    `;
+
+    container.appendChild(box);
 }
 </script>
 
