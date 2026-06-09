@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notepad Saya</title>
+<style>
+body{
+background:#000;
+color:#fff;
+font-family:Arial;
+padding:20px;
+}
+
+.box{
+background:#111;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+}
+
+button{
+background:#2196f3;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>NOTEPAD SAYA</h1>
+
+<div class="box">
+<span id="txt1">Halo bosku, ini pesan pertama.</span>
+<button onclick="copyText('txt1')">COPY</button>
+</div>
+
+<div class="box">
+<span id="txt2">Silahkan dicoba kembali ya bosku.</span>
+<button onclick="copyText('txt2')">COPY</button>
+</div>
+
+<script>
+function copyText(id){
+navigator.clipboard.writeText(
+document.getElementById(id).innerText
+);
+alert("Berhasil dicopy");
+}
+</script>
+
+</body>
+</html>
