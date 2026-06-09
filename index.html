@@ -3,256 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notepad Cyber Lock</title>
-
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<title>Cyber Casino Notepad</title>
 
 <style>
-:root{
-    --bg:#0f172a;
-    --box:#050505;
-    --text:white;
-    --btn:#2563eb;
-}
-
-/* LIGHT MODE */
-.light{
-    --bg:#f1f5f9;
-    --box:white;
-    --text:black;
-    --btn:#0ea5e9;
-}
-
 body{
     margin:0;
     font-family:Arial;
-    background:var(--bg);
-    color:var(--text);
-    overflow:hidden;
+    background:#020617;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* CYBER BACKGROUND */
-.grid{
+/* LED BACKGROUND */
+.led{
     position:fixed;
     inset:0;
-    background-image:
-        linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-    background-size:50px 50px;
-    z-index:-3;
-}
-
-.cyber-bg{
-    position:fixed;
-    inset:0;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(0,255,255,0.15), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(0,255,128,0.12), transparent 40%),
-        linear-gradient(135deg,#020617,#000);
+    background:radial-gradient(circle at 20% 20%, rgba(0,255,255,0.15), transparent 40%),
+               radial-gradient(circle at 80% 80%, rgba(0,255,128,0.12), transparent 40%);
+    animation:blink 2s infinite alternate;
     z-index:-2;
 }
 
-.scanline{
-    position:fixed;
-    top:-40%;
-    width:100%;
-    height:40%;
-    background:linear-gradient(to bottom,
-        transparent,
-        rgba(0,255,255,0.2),
-        transparent);
-    animation:scan 4s linear infinite;
-    z-index:-1;
-}
-
-@keyframes scan{
-    0%{top:-40%}
-    100%{top:120%}
-}
-
-/* LOCK SCREEN */
-#lockScreen{
-    position:fixed;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:#000;
-    z-index:9999;
+@keyframes blink{
+    0%{filter:brightness(1);}
+    100%{filter:brightness(1.4);}
 }
 
 /* HEADER */
 .header{
     text-align:center;
-    padding:15px;
+    padding:10px;
 }
 
-.logo{
-    padding:12px 25px;
-    border:1px solid #3b82f6;
-    display:inline-block;
-    border-radius:12px;
+/* BALANCE */
+.balance{
+    font-size:18px;
+    margin:10px;
+    color:#22d3ee;
 }
 
-/* CONTROLS */
-.controls{
-    text-align:center;
+/* SLOT */
+.slot{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
 }
 
+.reel{
+    width:90px;
+    height:90px;
+    background:#0f172a;
+    border:2px solid #22d3ee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    border-radius:10px;
+    box-shadow:0 0 10px #22d3ee;
+}
+
+/* BUTTON */
 button{
-    padding:8px 10px;
-    margin:3px;
+    padding:10px 20px;
+    margin:10px;
     border:none;
-    border-radius:6px;
+    border-radius:8px;
     cursor:pointer;
 }
 
-.add{background:#22c55e;color:white;}
-.mode{background:#f59e0b;color:white;}
-.set{background:#a855f7;color:white;}
+.spin{background:#22c55e;color:white;}
+.add{background:#2563eb;color:white;}
 
-/* BOX */
+/* NOTEPAD */
 .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:10px;
     padding:10px;
 }
 
 .box{
-    background:var(--box);
-    color:var(--text);
-    padding:12px;
-    border-radius:10px;
-    min-height:70px;
-    outline:none;
-    position:relative;
-}
-
-.copy{
-    position:absolute;
-    bottom:5px;
-    right:5px;
-    font-size:12px;
-    background:var(--btn);
-    color:white;
-}
-
-/* SETTINGS */
-#settings{
-    position:fixed;
-    top:10px;
-    right:10px;
-    background:#111;
+    background:#0f172a;
     padding:10px;
     border-radius:10px;
-    display:none;
-    z-index:99999;
+    min-height:60px;
+    outline:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="grid"></div>
-<div class="cyber-bg"></div>
-<div class="scanline"></div>
+<div class="led"></div>
 
-<!-- LOCK -->
-<div id="lockScreen">
-    <h2>🔐 Password</h2>
-    <input id="pass" type="password">
-    <button onclick="login()">Masuk</button>
-</div>
-
-<!-- SETTINGS -->
-<div id="settings">
-    <h4>⚙ Ganti Password</h4>
-    <input id="newPass" placeholder="password baru">
-    <button onclick="savePass()">Simpan</button>
-</div>
-
-<!-- UI -->
 <div class="header">
-    <div class="logo">📝 CYBER NOTEPAD</div>
+    <h2>📝 CYBER CASINO NOTEPAD</h2>
+    <div class="balance">💰 Saldo: <span id="saldo">1000</span></div>
 </div>
 
-<div class="controls">
-    <button class="add" onclick="addBox()">➕ Box</button>
-    <button class="mode" onclick="toggleMode()">🌙 Mode</button>
-    <button class="set" onclick="toggleSettings()">⚙</button>
+<!-- SLOT -->
+<div class="slot">
+    <div class="reel" id="r1">🍒</div>
+    <div class="reel" id="r2">🍋</div>
+    <div class="reel" id="r3">🔔</div>
+</div>
+
+<button class="spin" onclick="spin()">🎰 SPIN</button>
+
+<!-- NOTEPAD -->
+<div>
+    <button class="add" onclick="addBox()">➕ Tambah Note</button>
 </div>
 
 <div class="container" id="container"></div>
 
 <script>
-let container=document.getElementById("container");
 
-/* DEFAULT PASSWORD */
-if(!localStorage.getItem("pass")){
-    localStorage.setItem("pass","1234");
+let saldo = 1000;
+
+const icons = ["🍒","🍋","🍊","🔔","⭐","7️⃣"];
+
+/* SOUND (ding casino) */
+function ding(){
+    let ctx = new AudioContext();
+    let o = ctx.createOscillator();
+    let g = ctx.createGain();
+
+    o.type="sine";
+    o.frequency.value=800;
+
+    o.connect(g);
+    g.connect(ctx.destination);
+
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
 }
 
-/* LOGIN */
-function login(){
-    let p=document.getElementById("pass").value;
-    if(p===localStorage.getItem("pass")){
-        document.getElementById("lockScreen").style.display="none";
-        load();
-    }else{
-        alert("Password salah");
+/* SPIN */
+function spin(){
+    if(saldo < 50){
+        alert("Saldo habis!");
+        return;
     }
+
+    saldo -= 50;
+    updateSaldo();
+
+    let r1=document.getElementById("r1");
+    let r2=document.getElementById("r2");
+    let r3=document.getElementById("r3");
+
+    let i1=setInterval(()=>r1.innerText=random(),80);
+    let i2=setInterval(()=>r2.innerText=random(),80);
+    let i3=setInterval(()=>r3.innerText=random(),80);
+
+    setTimeout(()=>clearInterval(i1),1000);
+    setTimeout(()=>clearInterval(i2),1400);
+    setTimeout(()=>clearInterval(i3),1800);
+
+    setTimeout(()=>{
+        let a=random(),b=random(),c=random();
+        r1.innerText=a;
+        r2.innerText=b;
+        r3.innerText=c;
+
+        ding();
+
+        // JACKPOT SIMULASI
+        if(a===b && b===c){
+            saldo += 500;
+            alert("🎉 JACKPOT!");
+            ding();
+            ding();
+        }
+
+        updateSaldo();
+
+    },2000);
 }
 
-/* SETTINGS */
-function toggleSettings(){
-    let s=document.getElementById("settings");
-    s.style.display = s.style.display==="block"?"none":"block";
+function random(){
+    return icons[Math.floor(Math.random()*icons.length)];
 }
 
-function savePass(){
-    let p=document.getElementById("newPass").value;
-    if(p){
-        localStorage.setItem("pass",p);
-        alert("Password diganti!");
-    }
+/* SALDO */
+function updateSaldo(){
+    document.getElementById("saldo").innerText=saldo;
 }
 
-/* BOX */
-function addBox(text="Tulis..."){
+/* NOTEPAD */
+function addBox(){
     let div=document.createElement("div");
     div.className="box";
     div.contentEditable=true;
-    div.innerHTML=text+`<button class="copy" onclick="copy(this)">COPY</button>`;
-    container.appendChild(div);
-    save();
+    div.innerText="Tulis catatan...";
+    document.getElementById("container").appendChild(div);
 }
-
-/* COPY */
-function copy(btn){
-    navigator.clipboard.writeText(btn.parentElement.innerText.replace("COPY",""));
-}
-
-/* SAVE */
-function save(){
-    localStorage.setItem("data",container.innerHTML);
-}
-
-function load(){
-    container.innerHTML=localStorage.getItem("data")||"";
-}
-
-/* MODE */
-function toggleMode(){
-    document.body.classList.toggle("light");
-}
-
-/* AUTO SAVE */
-document.addEventListener("input",save);
-
-/* DRAG */
-new Sortable(container,{animation:150});
 
 </script>
 
