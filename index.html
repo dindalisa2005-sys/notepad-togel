@@ -135,12 +135,65 @@ BISA SLOT ATAU LIVEGAME SAJA.
         </div>
     </div>
 
+    <div class="column">
+        <div class="title">SUDAH DI PERINGATI 1 KALI</div>
+
+        <div class="box">
+            <span id="txt3">
+            KET SEBELUM NYA SUDAH DI PERINGATI BATAS LINE 2D
+TIDAK TERIMA BETTING TOGEL DAN HANYA BISA
+BERMAIN SLOT DAN LIVE GAME SAJA , 
+HANGUSKAN KEMENANGAN
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt3')">COPY</button>
+        </div>
+
+        <div class="box">
+            <span id="txt4">
+            INVEST 2D, KET SEBELUMNYA SUDAH PERNAH DI 
+PERINGATI UNTUK BERMAIN TOGEL ,HANGUSKAN
+KEMENANGAN KEMBALIKAN MODAL DEPOSIT
+.
+            </span>
+            <button class="copy-btn" onclick="copyText('txt4')">COPY</button>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="title">PEMAIN INVEST HKB</div>
+
+        <div class="box">
+            <span id="txt5">
+            PEMAIN INVEST PASARAN HKB 
+SUDAH DI LOCK DI WEB LAIN 
+TIDAK TERIMA BETTING TOGEL LAGI
+HANGUSKAN KEMENANGAN .
+            </span>
+            <button class="copy-btn" onclick="copyText('txt5')">COPY</button>
+        </div>
+
+        <div class="box">
+            <span id="txt6">
+            INVEST 2D LAGA DI WEB LAIN, TIDAK TERMAKAN
+JANGKA PANJANG, TIDAK TERIMA BETTING
+TOGEL LAGI DAN HANYA BISA MAIN SLOT ATAU 
+LIVE GAME SAJA.
+
+            </span>
+            <button class="copy-btn" onclick="copyText('txt6')">COPY</button>
+        </div>
+    </div>
+
 </div>
 
 <script>
 function copyText(id){
     const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text);
+
+    navigator.clipboard.writeText(text).then(() => {
+        console.log("Berhasil dicopy");
+    });
 }
 </script>
 
