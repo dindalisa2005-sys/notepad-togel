@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notepad Lock Cyber</title>
+<title>Notepad Cyber Lock</title>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
@@ -15,7 +15,6 @@
     --btn:#2563eb;
 }
 
-/* ===== LIGHT MODE ===== */
 .light{
     --bg:#f1f5f9;
     --box:white;
@@ -23,14 +22,13 @@
     --btn:#0ea5e9;
 }
 
-/* ===== BASE ===== */
 body{
     margin:0;
     font-family:Arial;
     background:var(--bg);
     color:var(--text);
-    transition:0.3s;
     overflow:hidden;
+    transition:0.3s;
 }
 
 /* ===== CYBER BACKGROUND ===== */
@@ -65,7 +63,6 @@ body{
         transparent,
         rgba(0,255,255,0.08),
         rgba(0,255,255,0.2),
-        rgba(0,255,255,0.08),
         transparent
     );
     animation:scanMove 4s linear infinite;
@@ -77,22 +74,23 @@ body{
     100%{top:120%;}
 }
 
-/* ===== LOCK SCREEN ===== */
+/* ===== LOCK ===== */
 #lockScreen{
     position:fixed;
     inset:0;
     background:#0f172a;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    flex-direction:column;
-    z-index:99999;
+    z-index:9999;
 }
 
 #lockScreen input{
     padding:10px;
     border:none;
     border-radius:8px;
+    margin:5px;
 }
 
 /* ===== HEADER ===== */
@@ -101,19 +99,7 @@ body{
     padding:20px;
 }
 
-.logo{
-    padding:15px 30px;
-    display:inline-block;
-    border-radius:20px;
-    border:2px solid #3b82f6;
-}
-
-/* ===== CONTROLS ===== */
-.controls{
-    text-align:center;
-    margin-bottom:10px;
-}
-
+/* ===== BUTTON ===== */
 button{
     padding:8px 12px;
     border:none;
@@ -125,7 +111,7 @@ button{
 .add-btn{background:#22c55e;color:white;}
 .mode-btn{background:#f59e0b;color:white;}
 
-/* ===== BOX ===== */
+/* ===== CONTAINER ===== */
 .container{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -133,6 +119,7 @@ button{
     padding:15px;
 }
 
+/* ===== BOX ===== */
 .box{
     background:var(--box);
     color:var(--text);
@@ -144,7 +131,7 @@ button{
     white-space:pre-wrap;
 }
 
-/* ===== BUTTON ===== */
+/* ===== COPY ===== */
 .copy-btn{
     position:absolute;
     right:8px;
@@ -156,6 +143,7 @@ button{
     border-radius:6px;
 }
 
+/* ===== DRAG ===== */
 .drag-handle{
     position:absolute;
     top:8px;
@@ -168,12 +156,12 @@ button{
 
 <body>
 
-<!-- CYBER BACKGROUND -->
+<!-- CYBER EFFECT -->
 <div class="grid"></div>
 <div class="cyber-bg"></div>
 <div class="scanline"></div>
 
-<!-- 🔐 LOCK SCREEN -->
+<!-- LOCK SCREEN -->
 <div id="lockScreen">
     <h2>🔐 Masukkan Password</h2>
     <input type="password" id="pass">
@@ -183,10 +171,7 @@ button{
 
 <!-- APP -->
 <div class="header">
-    <div class="logo">📝 NOTEPAD CYBER ROY</div>
-</div>
-
-<div class="controls">
+    <h2>📝 NOTEPAD CYBER LOCK</h2>
     <button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
     <button class="mode-btn" onclick="toggleMode()">🌙 / ☀ Mode</button>
 </div>
@@ -245,8 +230,10 @@ function loadData(){
     }
 }
 
-/* ===== AUTO SAVE ===== */
-document.addEventListener("input", saveData);
+/* ===== MODE ===== */
+function toggleMode(){
+    document.body.classList.toggle("light");
+}
 
 /* ===== DRAG ===== */
 new Sortable(container, {
@@ -255,17 +242,7 @@ new Sortable(container, {
     onEnd: saveData
 });
 
-/* ===== MODE ===== */
-function toggleMode(){
-    document.body.classList.toggle("light");
-    localStorage.setItem("mode",
-        document.body.classList.contains("light") ? "light":"dark"
-    );
-}
-
-if(localStorage.getItem("mode")==="light"){
-    document.body.classList.add("light");
-}
+document.addEventListener("input", saveData);
 
 loadData();
 </script>
