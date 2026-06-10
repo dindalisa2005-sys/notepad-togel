@@ -1,288 +1,167 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Casino Notepad</title>
-
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<title>NOTEPAD TOGEL ROY</title>
 
 <style>
-:root{
-    --bg:#020617;
-    --box:#0f172a;
-    --text:white;
-    --btn:#22c55e;
-    --accent:#22d3ee;
-}
-
-.light{
-    --bg:#f1f5f9;
-    --box:white;
-    --text:black;
-}
-
 body{
     margin:0;
-    font-family:Arial;
-    background:var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
+    font-family:Arial,sans-serif;
+    color:white;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    min-height:100vh;
 }
 
-/* CYBER BACKGROUND */
-.led{
-    position:fixed;
-    inset:0;
-    background:radial-gradient(circle at 20% 20%, rgba(0,255,255,0.15), transparent 40%),
-               radial-gradient(circle at 80% 80%, rgba(0,255,128,0.12), transparent 40%);
-    animation:blink 2s infinite alternate;
-    z-index:-2;
-}
-
-.scanline{
-    position:fixed;
-    width:100%;
-    height:40%;
-    top:-40%;
-    background:linear-gradient(to bottom,transparent,rgba(0,255,255,0.2),transparent);
-    animation:scan 4s linear infinite;
-    z-index:-1;
-}
-
-@keyframes scan{
-    0%{top:-40%;}
-    100%{top:120%;}
-}
-
-@keyframes blink{
-    0%{filter:brightness(1);}
-    100%{filter:brightness(1.4);}
-}
-
-/* HEADER */
 .header{
     text-align:center;
-    padding:10px;
+    padding:20px;
 }
 
-/* TOP MENU */
-.menu{
-    text-align:center;
-    margin:10px;
+.logo{
+    display:inline-block;
+    padding:18px 35px;
+    background:rgba(15,23,42,.8);
+    border:2px solid #3b82f6;
+    border-radius:25px;
+    font-size:28px;
+    font-weight:bold;
 }
 
-button{
-    padding:8px 12px;
+.add-btn{
+    display:block;
+    margin:10px auto;
+    padding:10px 20px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
     cursor:pointer;
-    margin:3px;
 }
 
-.add{background:var(--btn);color:white;}
-.mode{background:#f59e0b;color:white;}
-.lock{background:#ef4444;color:white;}
-
-/* NOTEPAD */
 .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:10px;
-    padding:10px;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:15px;
+    padding:15px;
 }
 
 .box{
-    background:var(--box);
-    padding:10px;
-    border-radius:10px;
-    min-height:60px;
+    background:#050505;
+    padding:15px;
+    border-radius:15px;
+    position:relative;
+    white-space:pre-line;
+    line-height:1.6;
+    min-height:120px;
     outline:none;
 }
 
-/* SLOT */
-.slot{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin:10px;
-}
-
-.reel{
-    width:70px;
-    height:70px;
-    background:#0f172a;
-    border:2px solid var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:30px;
-}
-
-.spin{
-    background:#22c55e;
+.copy-btn{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+    border:none;
+    background:#2563eb;
     color:white;
+    padding:6px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.copy-btn:hover{
+    background:#1d4ed8;
 }
 </style>
 </head>
 
 <body>
 
-<div class="led"></div>
-<div class="scanline"></div>
-
-<!-- LOCK -->
-<div id="lockScreen" style="
-position:fixed;inset:0;background:#020617;
-display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
-    <h2>🔐 LOGIN</h2>
-    <input id="user" placeholder="username"><br><br>
-    <input id="pass" type="password" placeholder="password"><br><br>
-    <button onclick="login()">Masuk</button>
-    <p id="err"></p>
-</div>
-
-<!-- APP -->
 <div class="header">
-    <h2>📝 Cyber Casino Notepad</h2>
-    <div>💰 Saldo: <span id="saldo">1000</span></div>
+    <div class="logo">📝 NOTEPAD TOGEL ROY</div>
 </div>
 
-<div class="menu">
-    <button class="add" onclick="addBox()">➕ Note</button>
-    <button class="mode" onclick="toggleMode()">🌙 Mode</button>
-    <button class="lock" onclick="changePass()">🔐 Password</button>
-</div>
+<button class="add-btn" onclick="addBox()">➕ Tambah Box</button>
 
-<!-- SLOT -->
-<div class="slot">
-    <div class="reel" id="r1">🍒</div>
-    <div class="reel" id="r2">🍋</div>
-    <div class="reel" id="r3">🔔</div>
-</div>
+<div class="container" id="container">
 
-<div style="text-align:center">
-    <button class="spin" onclick="spin()">🎰 SPIN</button>
-</div>
+    <div class="box" contenteditable="true">
+BERI PERINGATAN BATASAN PASANG TOGEL 2D
+JIKA KEDAPATAN BETTING LEBIH BATAS
+HANGUSKAN KEMENANGAN
+<button class="copy-btn" onclick="copyBox(this)">COPY</button>
+    </div>
 
-<div class="container" id="container"></div>
+    <div class="box" contenteditable="true">
+INVEST 2D, BERI PERINGATAN BATASAN
+TIDAK TERIMA BETTING TOGEL
+<button class="copy-btn" onclick="copyBox(this)">COPY</button>
+    </div>
+
+</div>
 
 <script>
-let saldo = 1000;
-let icons=["🍒","🍋","🍊","🔔","⭐","7️⃣"];
+function copyBox(btn){
+    const text = btn.parentElement.innerText.replace("COPY","");
+    navigator.clipboard.writeText(text.trim());
 
-/* USERS */
-let users = JSON.parse(localStorage.getItem("users")||"{}");
-let currentUser="";
-
-/* LOGIN */
-function login(){
-    let u=document.getElementById("user").value;
-    let p=document.getElementById("pass").value;
-
-    if(!users[u]) users[u]={pass:p,notes:"",saldo:1000};
-
-    if(users[u].pass===p){
-        currentUser=u;
-        saldo=users[u].saldo||1000;
-        document.getElementById("lockScreen").style.display="none";
-        loadNotes();
-        updateSaldo();
-    } else {
-        document.getElementById("err").innerText="Salah!";
-    }
-}
-
-/* CHANGE PASS */
-function changePass(){
-    let p=prompt("Password baru:");
-    if(p){
-        users[currentUser].pass=p;
-        saveUsers();
-        alert("Password berubah");
-    }
-}
-
-/* SAVE USERS */
-function saveUsers(){
-    users[currentUser].saldo=saldo;
-    localStorage.setItem("users",JSON.stringify(users));
-}
-
-/* NOTES */
-function addBox(text="Tulis..."){
-    let d=document.createElement("div");
-    d.className="box";
-    d.contentEditable=true;
-    d.innerText=text;
-    d.oninput=saveNotes;
-    document.getElementById("container").appendChild(d);
+    alert("✔ Teks berhasil dicopy");
 }
 
 function saveNotes(){
-    let notes=[...document.querySelectorAll(".box")].map(b=>b.innerText);
-    users[currentUser].notes=notes;
-    saveUsers();
+    const notes = [];
+    document.querySelectorAll(".box").forEach(box=>{
+        notes.push(box.innerHTML);
+    });
+
+    localStorage.setItem("roy_notepad", JSON.stringify(notes));
 }
 
 function loadNotes(){
-    document.getElementById("container").innerHTML="";
-    (users[currentUser].notes||[]).forEach(n=>addBox(n));
+    const data = JSON.parse(localStorage.getItem("roy_notepad") || "[]");
+
+    if(data.length){
+        const container = document.getElementById("container");
+        container.innerHTML = "";
+
+        data.forEach(item=>{
+            const box = document.createElement("div");
+            box.className = "box";
+            box.contentEditable = true;
+            box.innerHTML = item;
+
+            box.addEventListener("input", saveNotes);
+
+            container.appendChild(box);
+        });
+    }
 }
 
-/* MODE */
-function toggleMode(){
-    document.body.classList.toggle("light");
+function addBox(){
+    const box = document.createElement("div");
+    box.className = "box";
+    box.contentEditable = true;
+
+    box.innerHTML = `
+Tulis teks di sini...
+<button class="copy-btn" onclick="copyBox(this)">COPY</button>
+`;
+
+    box.addEventListener("input", saveNotes);
+
+    document.getElementById("container").appendChild(box);
+
+    saveNotes();
 }
 
-/* SLOT */
-function ding(){
-    let ctx=new AudioContext();
-    let o=ctx.createOscillator();
-    let g=ctx.createGain();
-    o.frequency.value=800;
-    o.connect(g);g.connect(ctx.destination);
-    o.start();
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.2);
-}
+document.addEventListener("input", saveNotes);
 
-function random(){
-    return icons[Math.floor(Math.random()*icons.length)];
-}
-
-function spin(){
-    if(saldo<50){alert("Habis");return;}
-
-    saldo-=50;
-    updateSaldo();
-
-    let r1=setInterval(()=>r1.innerText=random(),80);
-    let r2=setInterval(()=>r2.innerText=random(),80);
-    let r3=setInterval(()=>r3.innerText=random(),80);
-
-    setTimeout(()=>{
-        clearInterval(r1);clearInterval(r2);clearInterval(r3);
-
-        let a=random(),b=random(),c=random();
-        r1.innerText=a;r2.innerText=b;r3.innerText=c;
-
-        ding();
-
-        if(a===b&&b===c){
-            saldo+=500;
-            alert("JACKPOT!");
-        }
-
-        updateSaldo();
-        saveUsers();
-    },1500);
-}
-
-/* SALDO */
-function updateSaldo(){
-    document.getElementById("saldo").innerText=saldo;
-}
+loadNotes();
 </script>
 
 </body>
 </html>
+```
